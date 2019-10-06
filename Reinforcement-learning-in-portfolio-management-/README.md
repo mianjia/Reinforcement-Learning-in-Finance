@@ -1,4 +1,4 @@
-Folked from [liangzp-RL-PM](https://github.com/liangzp/Reinforcement-learning-in-portfolio-management-)
+Editted from [liangzp-RL-PM](https://github.com/liangzp/Reinforcement-learning-in-portfolio-management-)
 # Reinforcement learning in portfolio management
 
 ## Introduction
@@ -17,33 +17,7 @@ The environment provides supports for easily testing different reinforcement lea
 + ./summary- contains summaries, also with DDPG and PPO sub folder
 + ./agent- contains ddpg.py, ppo.py and ornstein_uhlenbeck.py(the noise we add to agent's actions during training)
 + ./data- contains America.csv for USA stock data, China.csv for China stock data. download_data.py can download China stock data by Tushare. environment.py generates states data for trading agents.
-+ config.json- the configuration file for training or testing settings:
-```
-{
-	"data":{
-		"start_date":"2015-01-01",
-		"end_date":"2018-01-01",
-		"market_types":["stock"],
-		"ktype":"D"
-	},
-	"session":{
-		"start_date":"2015-01-05",
-		"end_date":"2017-01-01",
-		"market_types":"America",
-	    "codes":["AAPL","ADBE","BABA","SNE","V"],
-		"features":["close"],
-		"agents":["CNN","DDPG","3"],
-		"epochs":"10000",
-		"noise_flag":"False",
-		"record_flag":"False",
-		"plot_flag":"False",
-		"reload_flag":"False",
-		"trainable":"True",
-		"method":"model_free"
-	}
-}
-```
-
++ config.json- the configuration file for training or testing settings
 Download stock data in shenzhen and shanghai stock market in the given period in Day(D) frequency. Options: hours, minutes
 ```
 python main.py --mode=download_data
@@ -64,66 +38,16 @@ python main.py --mode=test
 + method=model_based: the first epochs our agents would try to imitate a greedy strategy to quickly improve its performance. Then it would leave it and continue to self-improve by model-free reinforcement learning.
 
 ## Result
-+ Training data (USA)
-  ![USA](result/USA.png)
++ Backtest data (China)
+  ![USA](result_new/PG/5/backtest.png)
++ Backtest data (America)
+  ![USA](result_new/PG/7/backtest.png)
++ Backtest data (Vietnam)
+  ![USA](result_new/PG/6/backtest.png)
 
-+ Training data (China)
-  ![China](result/China.png)
-
-+ Adversarial Training
-
-  ![noise](result/noise.png)
-
-+ Backtest (China)
-  ![Final](result/Final.png)
-
-  ![56](result/56.png)
-
-+ APV under different feature combinations
-  ![features_reward](result/features_reward.png)
 
 **The other results can be found in our paper.**
 (http://arxiv.org/abs/1808.09940)
 
 
 
-
-
-## Contribution
-
-### Contributors
-
-* ***Zhipeng Liang***
-* ***Hao Chen***
-* ***Junhao Zhu***
-* ***Kangkang Jiang***
-* ***Yanran Li***
-### Institutions
-
-+ ***AI&FintechLab of Likelihood Technology***
-+ ***Sun Yat-sen University***
-
-## Acknowledegment
-
-We would like to say thanks to ***Mingwen Liu*** from ***ShingingMidas Private Fund***, ***Zheng Xie*** and ***Xingyu Fu*** from ***Sun Yat-sen University*** for their generous guidance throughout the project.
-
-## Set up
-
-Python Version
-
-+ ***3.6***
-
-Modules needed
-
-+ ***tensorflow(tensorflow-gpu)***
-+ ***numpy*** 
-+ ***pandas*** 
-+ ***matplotlib***
-
-## Contact
-
-+ liangzhp6@mail2.sysu.edu.cn
-+ chenhao8@mail2.sysu.edu.cn
-+ zhujh25@mail2.sysu.edu.cn
-+ jiangkk3@mail2.sysu.edu.cn
-+ liyr8@mail2.sysu.edu.cn
