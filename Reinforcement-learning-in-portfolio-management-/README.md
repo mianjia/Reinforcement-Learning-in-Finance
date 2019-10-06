@@ -1,5 +1,7 @@
 Editted from [liangzp-RL-PM](https://github.com/liangzp/Reinforcement-learning-in-portfolio-management-)
 # Reinforcement learning in portfolio management
+Implement the reinforcement learning in portfolio management in 3 stock markets: Vietnam, America and China
+
 
 ## Introduction
 
