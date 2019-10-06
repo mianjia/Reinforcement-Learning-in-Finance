@@ -28,7 +28,7 @@ class Environment:
         self.data=pd.read_csv(r'./data/'+market+'.csv',index_col=0,parse_dates=True,dtype=object)
         self.data["code"]=self.data["code"].astype(str)
         
-        if market=='China':
+        if market=='China':# or market=='Vietnam':
             self.data["code"]=self.data["code"].apply(fill_zeros)
 
         sample_flag=True
@@ -59,7 +59,7 @@ class Environment:
 
         self.data = pd.read_csv(r'./data/' + market + '.csv', index_col=0, parse_dates=True, dtype=object)
         self.data["code"] = self.data["code"].astype(str)
-        if market == 'China':
+        if market == 'China': # or market=='Vietnam':
             self.data["code"] = self.data["code"].apply(fill_zeros)
 
         self.data[features]=self.data[features].astype(float)

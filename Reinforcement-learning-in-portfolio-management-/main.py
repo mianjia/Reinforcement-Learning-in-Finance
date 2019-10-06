@@ -241,6 +241,7 @@ def parse_config(config,mode):
     print('Features:',features)
     print("Agent:Noise(",noise_flag,')---Recoed(',noise_flag,')---Plot(',plot_flag,')')
     print("Market Type:",market)
+    print("Stock codes:", codes)
     print("Predictor:",predictor,"  Framework:", framework,"  Window_length:",window_length)
     print("Epochs:",epochs)
     print("Trainable:",trainable)
@@ -262,7 +263,12 @@ def session(config,args):
     env = Environment()
 
     global M
-    M=codes+1 
+    if market == 'China':
+        M=codes+1
+    else:
+        M=len(codes)+1
+#     print("len codes",len(codes))
+#     M=codes+1
     # M = số lượng stock -> ảnh huong đến noise - chi tiết from agents.ornstein_uhlenbeck import OrnsteinUhlenbeckActionNoise
 
     # if framework == 'DDPG':
@@ -285,7 +291,10 @@ def session(config,args):
         if not os.path.exists(PATH_prefix):
             print('Create new path at',PATH_prefix)
             os.makedirs(PATH_prefix)
-            train_start_date, train_end_date, test_start_date, test_end_date, codes = env.get_repo(start_date, end_date, codes, market)
+            if market == "China":
+                train_start_date, train_end_date, test_start_date, test_end_date, codes = env.get_repo(start_date, end_date, codes, market)
+            else:
+                train_start_date, train_end_date, test_start_date, test_end_date, codes = env.get_repo(start_date, end_date, len(codes), market)
             #?
             env.get_data(train_start_date, train_end_date, features, window_length, market, codes)
             
@@ -300,7 +309,7 @@ def session(config,args):
                 print("finish writing config")
                 
         else:
-            with open("result_new/PG/" + str(args['num']) + '/config.json', 'r') as f:
+            with open("./result_new/PG/" + str(args['num']) + '/config.json', 'r') as f:
                 dict_data = json.load(f)
                 print("successfully load config")
                 
@@ -333,7 +342,7 @@ def session(config,args):
     # TESTING
     
     elif args['mode']=='test':
-        with open("result_new/PG/" + str(args['num']) + '/config.json', 'r') as f:
+        with open("./result_new/PG/" + str(args['num']) + '/config.json', 'r') as f:
             dict_data=json.load(f)
         test_start_date, test_end_date, codes = datetime.datetime.strptime(dict_data['test_start_date'],'%Y-%m-%d'),datetime.datetime.strptime(dict_data['test_end_date'],'%Y-%m-%d'),dict_data['codes']
         env.get_data(test_start_date,test_end_date,features,window_length,market,codes)

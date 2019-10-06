@@ -42,8 +42,8 @@ class PG:
             print("Loading Model")
             try:
 #                 checkpoint = tf.train.get_checkpoint_state('./result_new/PG/'+self.number+'/'+'saved_network/'+type+'/')
-                checkpoint = tf.train.get_checkpoint_state('result_new/PG/'+self.number+'/'+'saved_network/'+type+'/')
-                print('result_new/PG/'+self.number+'/'+'saved_network/'+type+'/'')
+                checkpoint = tf.train.get_checkpoint_state('./result_new/PG/'+self.number+'/'+'saved_network/'+type+'/')
+                print('./result_new/PG/'+self.number+'/'+'saved_network/'+type+'/')
                 if checkpoint and checkpoint.model_checkpoint_path:
                     tf.reset_default_graph()
                     self.saver.restore(self.sesson, checkpoint.model_checkpoint_path)
