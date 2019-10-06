@@ -296,7 +296,7 @@ def session(config,args):
                 train_start_date, train_end_date, test_start_date, test_end_date, codes = env.get_repo(start_date, end_date, codes, market)
             else:
                 train_start_date, train_end_date, test_start_date, test_end_date, codes = env.get_repo(start_date, end_date, len(codes), market)
-            #?
+            
             env.get_data(train_start_date, train_end_date, features, window_length, market, codes)
             
             print("Codes:", codes)
@@ -306,7 +306,8 @@ def session(config,args):
                 json.dump({"train_start_date": train_start_date.strftime('%Y-%m-%d'),
                            "train_end_date": train_end_date.strftime('%Y-%m-%d'),
                            "test_start_date": test_start_date.strftime('%Y-%m-%d'),
-                           "test_end_date": test_end_date.strftime('%Y-%m-%d'), "codes": codes}, f)
+                           "test_end_date": test_end_date.strftime('%Y-%m-%d'), 
+                           "codes": codes}, f)
                 print("finish writing config")
                 
         else:
@@ -314,9 +315,16 @@ def session(config,args):
                 dict_data = json.load(f)
                 print("successfully load config")
                 
-            train_start_date, train_end_date, codes = datetime.datetime.strptime(dict_data['train_start_date'],                                                                               '%Y-%m-%d'), datetime.datetime.strptime(dict_data['train_end_date'], '%Y-%m-%d'), dict_data['codes']
+            if market == "China":
+                train_start_date, train_end_date, test_start_date, test_end_date, codes = env.get_repo(start_date, end_date, codes, market)
+            else:
+                train_start_date, train_end_date, test_start_date, test_end_date, codes = env.get_repo(start_date, end_date, len(codes), market)
             
             env.get_data(train_start_date, train_end_date, features, window_length, market, codes)
+                
+#             train_start_date, train_end_date, codes = datetime.datetime.strptime(dict_data['train_start_date'],                                                                               '%Y-%m-%d'), datetime.datetime.strptime(dict_data['train_end_date'], '%Y-%m-%d'), dict_data['codes']
+            
+#             env.get_data(train_start_date, train_end_date, features, window_length, market, codes)
 
             
         for noise_flag in ['True']:#['False','True'] to train agents with noise and without noise in assets prices

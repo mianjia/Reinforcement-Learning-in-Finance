@@ -25,25 +25,38 @@ class Environment:
         #preprocess parameters
 
         #read all data
+        print('Running env.get_repo()....')
         self.data=pd.read_csv(r'./data/'+market+'.csv',index_col=0,parse_dates=True,dtype=object)
+        print('Loading data succesfully')
+        
         self.data["code"]=self.data["code"].astype(str)
         
         if market=='China':# or market=='Vietnam':
             self.data["code"]=self.data["code"].apply(fill_zeros)
+            
+        codes = self.data["code"].unique().tolist()
+        print("Checking number of codes = {}".format(len(codes)))
+        data2 = self.data.loc[self.data["code"].isin(codes)]
+        date_set=set(data2.index)
+        for code in codes:
+            print('{} time intersecting...'.format(code))
+            date_set=date_set.intersection((set(data2.loc[data2['code']==code].index)))
+        
+#         sample_flag=True
+#         while sample_flag:
+#             codes=random.sample(set(self.data["code"]),codes_num)
+#             data2=self.data.loc[self.data["code"].isin(codes)]
 
-        sample_flag=True
-        while sample_flag:
-            codes=random.sample(set(self.data["code"]),codes_num)
-            data2=self.data.loc[self.data["code"].isin(codes)]
-
-            # 生成有效时间 Generate effective time
-            date_set=set(data2.loc[data2['code']==codes[0]].index)
-            for code in codes:
-                date_set=date_set.intersection((set(data2.loc[data2['code']==code].index)))
-            if len(date_set)>1200:
-                sample_flag=False
+#             # 生成有效时间 Generate effective time
+#             date_set=set(data2.loc[data2['code']==codes[0]].index)
+#             for code in codes:
+#                 print('{} continue...'.format(code))
+#                 date_set=date_set.intersection((set(data2.loc[data2['code']==code].index)))
+#             if len(date_set)>1200:
+#                 sample_flag=False
 
         date_set=date_set.intersection(set(pd.date_range(start_date,end_date)))
+        print("print length date set {}".format(len(date_set)))
         self.date_set = list(date_set)
         self.date_set.sort()
 
