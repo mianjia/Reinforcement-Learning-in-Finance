@@ -157,7 +157,7 @@ def maxdrawdown(arr):
     return (1-arr[i]/arr[j])
 
 
-def backtest(agent,env):
+def backtest(agent,env,market):
     global PATH_prefix
     print("starting to backtest......")
     from agents.UCRP import UCRP
@@ -202,6 +202,7 @@ def backtest(agent,env):
     plt.figure(figsize=(8, 6), dpi=100)
     for i in range(len(agents)):
         plt.plot(wealths_result[i],label=labels[i])
+        plt.title('RL - PM in the {} stock market'.format(market))
         mrr=float(np.mean(rs_result[i])*100)
         sharpe=float(np.mean(rs_result[i])/np.std(rs_result[i])*np.sqrt(252))
         maxdrawdown=float(max(1-min(wealths_result[i])/np.maximum.accumulate(wealths_result[i])))
@@ -283,7 +284,7 @@ def session(config,args):
 
 
     stocktrader=StockTrader()
-    PATH_prefix = "result_new/PG/" + str(args['num']) + '/' #<-
+    PATH_prefix = "./result_new/PG/" + str(args['num']) + '/' #<-
 
     
     
@@ -347,7 +348,7 @@ def session(config,args):
         test_start_date, test_end_date, codes = datetime.datetime.strptime(dict_data['test_start_date'],'%Y-%m-%d'),datetime.datetime.strptime(dict_data['test_end_date'],'%Y-%m-%d'),dict_data['codes']
         env.get_data(test_start_date,test_end_date,features,window_length,market,codes)
         backtest([PG(len(codes) + 1, int(window_length), len(features), '-'.join(agent_config), 'True','False','True',args['num'])],
-                 env)
+                 env,market)
 
         
         

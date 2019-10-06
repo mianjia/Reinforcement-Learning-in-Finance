@@ -60,7 +60,7 @@ class PG:
 
         if trainable == 'True':
             # Initial summary
-            self.summary_writer = tf.summary.FileWriter('result_new/PG/'+self.number+'/'+'summary/'+type+'/', self.sesson.graph)
+            self.summary_writer = tf.summary.FileWriter('./result_new/PG/'+self.number+'/'+'summary/'+type+'/', self.sesson.graph)
             self.summary_ops, self.summary_vars = self.build_summaries()
 
 
@@ -126,7 +126,7 @@ class PG:
 
     def save_model(self):
         print('Model save')
-        path='result_new/PG/'+self.number+'/'+'saved_network/'+self.type+'/'
+        path='./result_new/PG/'+self.number+'/'+'saved_network/'+self.type+'/'
         if not os.path.exists(path):
             print('Create new folder :',path)
             os.makedirs(path)        
