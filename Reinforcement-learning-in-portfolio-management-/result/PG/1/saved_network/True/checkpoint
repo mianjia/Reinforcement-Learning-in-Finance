@@ -1,0 +1,8 @@
+model_checkpoint_path: "CNN-PG-10-7"
+all_model_checkpoint_paths: "CNN-PG-10-1"
+all_model_checkpoint_paths: "CNN-PG-10-2"
+all_model_checkpoint_paths: "CNN-PG-10-3"
+all_model_checkpoint_paths: "CNN-PG-10-4"
+all_model_checkpoint_paths: "CNN-PG-10-5"
+all_model_checkpoint_paths: "CNN-PG-10-6"
+all_model_checkpoint_paths: "CNN-PG-10-7"
