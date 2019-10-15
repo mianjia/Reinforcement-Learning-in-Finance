@@ -11,7 +11,7 @@
 		"market_types":"Vietnam",
 	    "codes":["CTG","HPG","SSI","VCB","VNM"],
 		"features":["close","high"],
-		"agents":["CNN","PG","10"],
+		"agents":["CNN","DDPG","3"],
 		"epochs":"100",
 		"noise_flag":"True",
 		"record_flag":"False",

@@ -328,10 +328,18 @@ def session(config,args):
 
             
         for noise_flag in ['True']:#['False','True'] to train agents with noise and without noise in assets prices
+            
             if framework == 'PG':
                 print("*-----------------Loading PG Agent---------------------*")
                 agent = PG(len(codes) + 1, int(window_length), len(features), '-'.join(agent_config), reload_flag, trainable,noise_flag,args['num'])
-
+                print("Finish import {}".format(agent.name))
+                
+            elif framework == 'DDPG':
+                print("*-----------------Loading DDPG Agent---------------------*")
+                from agents.ddpg import DDPG
+                agent = DDPG(predictor, len(codes) + 1, int(window_length), len(features), '-'.join(agent_config), reload_flag,trainable)
+                print("Finish import {}".format(agent.name))
+                
             print("Training with {:d}".format(epochs))
             for epoch in range(epochs):
                 print("Now we are at epoch", epoch)
